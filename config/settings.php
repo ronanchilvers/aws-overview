@@ -33,13 +33,11 @@ $settings = [
 
     "aws" => [
         "credentials" => [
-            "access_key" => "CHANGEME",
-            "secret_key" => "CHANGEME",
+            "key"    => "CHANGEME",
+            "secret" => "CHANGEME",
         ],
-        "regions"   => [
-            "eu-west-1",
-            "eu-west-2",
-        ]
+        "region"  => "eu-west-2",
+        "version" => "latest",
     ],
 ];
 

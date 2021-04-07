@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Facades\Aws;
 use App\Facades\View;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

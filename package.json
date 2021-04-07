@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bulma": "^0.9.2",
     "gulp": "^4.0",
     "gulp-autoprefixer": "^6.0",
     "gulp-clean-css": "^3.9.0",

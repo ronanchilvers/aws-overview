@@ -2,14 +2,15 @@
 
 namespace App;
 
+use App\Twig\GlobalsExtension;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Registry;
 use PDO;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use Ronanchilvers\Container\ServiceProviderInterface;
 use Ronanchilvers\Container\Container;
+use Ronanchilvers\Container\ServiceProviderInterface;
 use Ronanchilvers\Sessions\Session;
 use Ronanchilvers\Sessions\Storage\CookieStorage;
 use Ronanchilvers\Utility\File;
@@ -74,6 +75,17 @@ class Provider implements ServiceProviderInterface
             );
             $request = $c->get('request');
             $basePath = rtrim(str_ireplace('index.php', '', $request->getUri()->getBasePath()), '/');
+            $view->addExtension(
+                new GlobalsExtension([
+                    'debug'    => $c->get('settings')['displayErrorDetails'],
+                    'session'  => $c->get('session'),
+                    'request'  => $c->get('request'),
+                    // 'security' => $c->get(Manager::class),
+                    'php' => [
+                        'version' => phpversion(),
+                    ],
+                ])
+            );
             $view->addExtension(
                 new TwigExtension(
                     $c->get('router'),

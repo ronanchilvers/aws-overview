@@ -1,0 +1,6 @@
+{% extends 'page.html.twig' %}
+
+{% block heading %}Add an account{% endblock %}
+{% block body %}
+{{  include('account/form.html.twig', { action: path_for('account.add') }) }}
+{% endblock %}

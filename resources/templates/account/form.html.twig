@@ -1,0 +1,85 @@
+<form method="post" action="{{ action }}">
+
+    <div class="field">
+        {%  set error_class = account.hasError('name') ? "is-danger" : "" %}
+        <label
+            class="label {{ error_class }}"
+            for="name">Name</label>
+        <div class="control">
+            <input
+                type="text"
+                id="name"
+                name="data[name]"
+                class="input {{ error_class }}"
+                placeholder="A short descriptive name (required)"
+                value="{{ account.name }}">
+        </div>
+        <p class="help {{ error_class }}">Required</p>
+    </div>
+
+    <div class="field">
+        {%  set error_class = account.hasError('key') ? "is-danger" : "" %}
+        <label
+            class="label {{ error_class }}"
+            for="key">Access Key</label>
+        <div class="control">
+            <input
+                type="text"
+                id="key"
+                name="data[key]"
+                class="input {{ error_class }}"
+                placeholder="The account's AWS access key (required)"
+                value="{{ account.key }}">
+        </div>
+        <p class="help {{ error_class }}">Required</p>
+    </div>
+
+    <div class="field">
+        {%  set error_class = account.hasError('secret') ? "is-danger" : "" %}
+        <label
+            class="label {{ error_class }}"
+            for="secret">Secret Key</label>
+        <div class="control">
+            <input
+                type="text"
+                id="secret"
+                name="data[secret]"
+                class="input {{ error_class }}"
+                placeholder="The account's AWS secret key (required)"
+                value="{{ account.secret }}">
+        </div>
+        <p class="help {{ error_class }}">Required</p>
+    </div>
+
+    <div class="field">
+        {%  set error_class = account.hasError('regions') ? "is-danger" : "" %}
+        <label class="label {{ error_class }}">Regions</label>
+        <div class="columns is-multiline">
+        {% for region in regions %}
+            {#% if 0 != loop.index0 and 0 == loop.index0 % 3 %}
+        </div>
+        <div class="columns">
+            {% endif %#}
+            <div class="column is-2-widescreen is-3-desktop is-4-tablet is-12-mobile">
+                <label
+                    class="checkbox"
+                    for="region_{{ region }}">
+                    <input
+                        type="checkbox"
+                        id="region_{{ region }}"
+                        name="data[regions][{{ region }}]"
+                        value="{{ region }}"
+                        {% if account.hasRegion(region) %}checked="checked"{% endif %}>
+                    {{ region }}
+                </label>
+            </div>
+        {% endfor %}
+        </div>
+        <p class="help {{ error_class }}">Required</p>
+    </div>
+
+    <div class="buttons is-right">
+        <button class="button is-primary" type="submit">Save</button>
+    </div>
+
+</form>

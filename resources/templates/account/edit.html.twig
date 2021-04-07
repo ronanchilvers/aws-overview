@@ -1,0 +1,6 @@
+{% extends 'page.html.twig' %}
+
+{% block heading %}Edit account {{ account.name }}{% endblock %}
+{% block body %}
+{{  include('account/form.html.twig', { action: path_for('account.edit', { id: account.id }) }) }}
+{% endblock %}

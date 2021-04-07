@@ -1,0 +1,36 @@
+{% extends 'page.html.twig' %}
+
+{% block heading %}Your Accounts{% endblock %}
+{% block body %}
+{% if accounts|length == 0 %}
+<p class="notification is-info is-light">
+    No accounts found - <a href="{{ path_for('account.add') }}" class="is-link">click here to create one</a>
+</p>
+{% else %}
+<table class="table is-striped is-hoverable is-fullwidth">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Key</th>
+            <th>Regions</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for account in accounts %}
+        <tr>
+            <td>{{ account.name }}</td>
+            <td>{{ account.key }}</td>
+            <td>{{ account.regions|join(', ') }}</td>
+            <td>
+                <a class="is-link" href="{{ path_for('account.edit', { id: account.id })}}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a
+    class="button is-link is-pulled-right"
+    href="{{ path_for('account.add') }}">Add an account</a>
+{% endif %}
+{% endblock %}

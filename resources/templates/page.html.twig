@@ -4,15 +4,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="/css/vendor.css">
         <link rel="stylesheet" type="text/css" href="/css/app.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div class="o-wrapper">
-            <div class="o-wrapper__inner">
+        {{ include('partials/nav.html.twig') }}
+        {{ include('partials/notifications.html.twig') }}
+        <section class="section">
+            <div class="container mb-5">
+                <h1 class="is-size-3">{% block heading %}Heading{% endblock %}</h1>
+            </div>
+            <div class="container">
                 {% block body %}{% endblock %}
             </div>
-        </div>
+        </section>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
