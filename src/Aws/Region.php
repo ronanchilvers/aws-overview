@@ -27,8 +27,6 @@ class Region
         "eu-central-2",
         "eu-east-1",
         "eu-north-1",
-        "eu-north-1",
-        "eu-south-1",
         "eu-south-1",
         "eu-west-1",
         "eu-west-2",

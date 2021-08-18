@@ -8,8 +8,10 @@ use App\Facades\Log;
 use App\Facades\Router;
 use App\Facades\Session;
 use App\Facades\View;
+use App\Queue\DiscoverJob;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Ronanchilvers\Foundation\Facade\Queue;
 use Ronanchilvers\Orm\Orm;
 
 class AccountController
@@ -53,7 +55,8 @@ class AccountController
         if ($request->isMethod("POST")) {
             $data = $request->getParsedBody()['data'];
             $account->fromArray($data);
-            $account->regions = array_values($data['regions']);
+            $regions = isset($data['regions']) ? $data['regions'] : [];
+            $account->regions = array_values($regions);
             if ($account->saveWithValidation()) {
                 Session::flash([
                     'heading' => 'Account added'
@@ -107,7 +110,8 @@ class AccountController
         if ($request->isMethod("POST")) {
             $data = $request->getParsedBody()['data'];
             $account->fromArray($data);
-            $account->regions = array_values($data['regions']);
+            $regions = isset($data['regions']) ? $data['regions'] : [];
+            $account->regions = array_values($regions);
             if ($account->saveWithValidation()) {
                 Session::flash([
                     'heading' => 'Account updated'
@@ -124,7 +128,6 @@ class AccountController
             ]);
         }
 
-
         return View::render(
             $response,
             'account/edit.html.twig',
@@ -132,6 +135,34 @@ class AccountController
                 'account' => $account,
                 'regions' => Region::ALL
             ]
+        );
+    }
+
+    /**
+     * Queue a discovery for a given account
+     */
+    public function queueDiscover(
+        ServerRequestInterface $request,
+        ResponseInterface $response,
+        $args
+    ) {
+        if (!isset($args['id'])) {
+            Session::flash([
+                'heading' => 'Invalid or missing account id'
+            ], 'error');
+            return $response->withRedirect(
+                Router::pathFor('account.index')
+            );
+        }
+        $account = Orm::finder(Account::class)->one($args['id']);
+        Queue::dispatch(
+            new DiscoverJob($account)
+        );
+        Session::flash([
+            'heading' => 'Queued discovery job'
+        ], 'success');
+        return $response->withRedirect(
+            Router::pathFor('account.index')
         );
     }
 }

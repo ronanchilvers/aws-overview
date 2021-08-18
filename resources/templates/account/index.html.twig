@@ -23,14 +23,12 @@
             <td>{{ account.key }}</td>
             <td>{{ account.regions|join(', ') }}</td>
             <td>
-                <a class="is-link" href="{{ path_for('account.edit', { id: account.id })}}">Edit</a>
+                [<a class="is-link" href="{{ path_for('account.edit', { id: account.id })}}">Edit</a>]
+                [<a class="is-link" href="{{ path_for('account.queue.discover', { id: account.id })}}">Discover</a>]
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<a
-    class="button is-link is-pulled-right"
-    href="{{ path_for('account.add') }}">Add an account</a>
 {% endif %}
 {% endblock %}

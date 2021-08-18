@@ -16,3 +16,8 @@ $app->get(
 $app->group('/account', function (App $app) {
     include(__DIR__ . '/routes/account.php');
 });
+
+// Resources
+$app->group('/resource', function (App $app) {
+    include(__DIR__ . '/routes/resource.php');
+});

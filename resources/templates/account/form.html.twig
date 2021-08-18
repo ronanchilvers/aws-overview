@@ -18,6 +18,23 @@
     </div>
 
     <div class="field">
+        {%  set error_class = account.hasError('number') ? "is-danger" : "" %}
+        <label
+            class="label {{ error_class }}"
+            for="number">Account Number</label>
+        <div class="control">
+            <input
+                type="text"
+                id="number"
+                name="data[number]"
+                class="input {{ error_class }}"
+                placeholder="The AWS account number (required)"
+                value="{{ account.number }}">
+        </div>
+        <p class="help {{ error_class }}">Required</p>
+    </div>
+
+    <div class="field">
         {%  set error_class = account.hasError('key') ? "is-danger" : "" %}
         <label
             class="label {{ error_class }}"
@@ -28,7 +45,7 @@
                 id="key"
                 name="data[key]"
                 class="input {{ error_class }}"
-                placeholder="The account's AWS access key (required)"
+                placeholder="An AWS access key for this account (required)"
                 value="{{ account.key }}">
         </div>
         <p class="help {{ error_class }}">Required</p>
@@ -45,7 +62,7 @@
                 id="secret"
                 name="data[secret]"
                 class="input {{ error_class }}"
-                placeholder="The account's AWS secret key (required)"
+                placeholder="An AWS secret key for this account (required)"
                 value="{{ account.secret }}">
         </div>
         <p class="help {{ error_class }}">Required</p>

@@ -1,0 +1,31 @@
+{% extends 'page.html.twig' %}
+
+{% block heading %}Resources{% endblock %}
+{% block body %}
+{% if resources|length == 0 %}
+<p class="notification is-info is-light">
+    No resources found yet - <a href="{{ path_for('account.add') }}" class="is-link">add an account</a> to trigger resource discovery
+</p>
+{% else %}
+<table class="table is-striped is-hoverable is-fullwidth">
+    <thead>
+        <tr>
+            <th>Account</th>
+            <th>ARN</th>
+            <th>Name</th>
+            <th>Region</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for resource in resources %}
+        <tr>
+            <td>{{ resource.account }}</td>
+            <td>{{ resource.arn }}</td>
+            <td>{{ resource.name }}</td>
+            <td>{{ resource.region }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

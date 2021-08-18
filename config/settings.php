@@ -31,14 +31,23 @@ $settings = [
         'options'  => [],
     ],
 
-    "aws" => [
-        "credentials" => [
-            "key"    => "CHANGEME",
-            "secret" => "CHANGEME",
-        ],
-        "region"  => "eu-west-2",
-        "version" => "latest",
+    // Queue config
+    'queue' => [
+        'host'          => '127.0.0.1',
+        'port'          => 11300,
+        'default.queue' => 'deploy',
+        'timeout'       => 2,
     ],
+
+    // // AWS configuration
+    // "aws" => [
+    //     "credentials" => [
+    //         "key"    => "CHANGEME",
+    //         "secret" => "CHANGEME",
+    //     ],
+    //     "region"  => "eu-west-2",
+    //     "version" => "latest",
+    // ],
 ];
 
 $localYaml = __DIR__ . '/../local.yaml';

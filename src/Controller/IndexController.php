@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Facades\Aws;
-use App\Facades\View;
+use App\Facades\Router;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -23,9 +22,8 @@ class IndexController
         ServerRequestInterface $request,
         ResponseInterface $response
     ) {
-        return View::render(
-            $response,
-            'index/index.html.twig'
+        return $response->withRedirect(
+            Router::pathFor('resource.index')
         );
     }
 }

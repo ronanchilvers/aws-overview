@@ -13,6 +13,17 @@ class Account extends Model
     static protected $columnPrefix = 'account';
 
     /**
+     * To String method
+     *
+     * @return string
+     * @author Ronan Chilvers <ronan@d3r.com>
+     */
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
      * Boot the model
      *
      * @author Ronan Chilvers <ronan@d3r.com>
@@ -44,9 +55,26 @@ class Account extends Model
      */
     public function hasRegion($region): bool
     {
+        if (empty($this->regions)) {
+            return false;
+        }
         return in_array(
             $region,
             $this->regions
         );
+    }
+
+    /**
+     * Get a credentials array
+     *
+     * @return array
+     * @author Ronan Chilvers <ronan@d3r.com>
+     */
+    public function getCredentialsArray(): array
+    {
+        return [
+            'key'    => $this->key,
+            'secret' => $this->secret,
+        ];
     }
 }

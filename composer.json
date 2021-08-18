@@ -3,9 +3,12 @@
     "description": "Base framework that extends slim and adds some useful components",
     "type": "project",
     "require": {
+        "aws/aws-sdk-php": "^3.172",
         "defuse/php-encryption": "^2.1",
         "dflydev/fig-cookies": "^1.0",
         "monolog/monolog": "^1.23",
+        "pda/pheanstalk": "^4.0",
+        "respect/validation": "^2.2",
         "robmorgan/phinx": "^0.10.6",
         "ronanchilvers/container-bridge-slim": "^1.2",
         "ronanchilvers/foundation": "^1.0",
@@ -14,9 +17,7 @@
         "slim/slim": "^3.9",
         "slim/twig-view": "^2.3",
         "symfony/console": "^3.4",
-        "symfony/yaml": "^4.0",
-        "aws/aws-sdk-php": "^3.172",
-        "respect/validation": "^2.2"
+        "symfony/yaml": "^4.0"
     },
     "require-dev": {
         "maximebf/debugbar": "^1.0"
