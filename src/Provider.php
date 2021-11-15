@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Twig\AwsExtension;
 use App\Twig\GlobalsExtension;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -86,6 +87,7 @@ class Provider implements ServiceProviderInterface
                     ],
                 ])
             );
+            $view->addExtension(new AwsExtension);
             $view->addExtension(
                 new TwigExtension(
                     $c->get('router'),

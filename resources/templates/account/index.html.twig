@@ -7,28 +7,30 @@
     No accounts found - <a href="{{ path_for('account.add') }}" class="is-link">click here to create one</a>
 </p>
 {% else %}
-<table class="table is-striped is-hoverable is-fullwidth">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Key</th>
-            <th>Regions</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for account in accounts %}
-        <tr>
-            <td>{{ account.name }}</td>
-            <td>{{ account.key }}</td>
-            <td>{{ account.regions|join(', ') }}</td>
-            <td>
-                [<a class="is-link" href="{{ path_for('account.edit', { id: account.id })}}">Edit</a>]
-                [<a class="is-link" href="{{ path_for('account.queue.discover', { id: account.id })}}">Discover</a>]
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+            <tr>
+                <th>Name</th>
+                {# <th>Key</th> #}
+                <th>Regions</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+            <tr>
+                <td>{{ account.name }}</td>
+                {# <td>{{ account.key }}</td> #}
+                <td>{{ account.regions|map(region => region|region_label)|join("<br />")|raw }}</td>
+                <td>
+                    [<a class="is-link" href="{{ path_for('account.edit', { id: account.id })}}">Edit</a>]<br />
+                    [<a class="is-link" href="{{ path_for('account.queue.discover', { id: account.id })}}">Discover</a>]
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endif %}
 {% endblock %}

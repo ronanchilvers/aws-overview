@@ -6,4 +6,9 @@ $(function () {
             .find('.js-toggle-subject');
         $subjects.prop('checked', !$subjects.prop('checked'));
     });
+
+    $(".navbar-burger").click(function() {
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+    });
 });

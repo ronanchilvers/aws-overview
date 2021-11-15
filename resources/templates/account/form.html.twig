@@ -80,7 +80,7 @@
             Regions
         </label>
         <div class="columns is-multiline" id="js-regions">
-        {% for region in regions %}
+        {% for region,label in regions %}
             {#% if 0 != loop.index0 and 0 == loop.index0 % 3 %}
         </div>
         <div class="columns">
@@ -96,7 +96,7 @@
                         value="{{ region }}"
                         class="js-toggle-subject"
                         {% if account.hasRegion(region) %}checked="checked"{% endif %}>
-                    {{ region }}
+                    {{ label }}
                 </label>
             </div>
         {% endfor %}

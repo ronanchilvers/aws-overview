@@ -3,6 +3,7 @@
 namespace App\Aws\Model;
 
 use App\Aws\Model\Account;
+use App\Aws\Model\Finder\ResourceFinder;
 use Respect\Validation\Validator;
 use Ronanchilvers\Orm\Model;
 use Ronanchilvers\Orm\Traits\HasValidationTrait;
@@ -16,6 +17,7 @@ class Resource extends Model
 {
     use HasValidationTrait;
 
+    static protected $finder = ResourceFinder::class;
     static protected $columnPrefix = 'resource';
 
     /**

@@ -86,7 +86,7 @@ class AccountController
             'account/add.html.twig',
             [
                 'account' => $account,
-                'regions' => Region::ALL
+                'regions' => Region::ALL,
             ]
         );
     }

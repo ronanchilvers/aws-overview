@@ -2,30 +2,97 @@
 
 {% block heading %}Resources{% endblock %}
 {% block body %}
+<form class="columns" method="get">
+    <div class="column is-narrow">
+        <div class="field">
+            <label class="label">Type</label>
+            <div class="control">
+                <div class="select">
+                    <select name="type">
+                        <option value="">All</option>
+                    {% for type in ["ec2", "s3" ] %}
+                        <option
+                            value="{{ type }}"
+                            {% if filtered_type == type %}selected{% endif %}
+                            >
+                            {{ type }}
+                        </option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column is-narrow">
+        <div class="field">
+            <label class="label">Account</label>
+            <div class="control">
+                <div class="select">
+                    <select name="account">
+                        <option value="">All</option>
+                    {% for account in accounts %}
+                        <option
+                            value="{{ account.id }}"
+                            {% if filtered_account == account.id %}selected{% endif %}
+                            >{{ account.name }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column is-narrow">
+        <div class="field">
+            <label class="label">Region</label>
+            <div class="control">
+                <div class="select">
+                    <select name="region">
+                        <option value="">All</option>
+                    {% for region,label in regions %}
+                        <option
+                            value="{{ region }}"
+                            {% if filtered_region == region %}selected{% endif %}
+                            >{{ label }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column is-narrow">
+        <label class="label">&nbsp;</label>
+        <div class="control">
+            <button class="button is-primary">Apply</button>
+            <a class="button" href="{{ path_for('resource.index') }}">Reset</a>
+        </div>
+    </div>
+</form>
 {% if resources|length == 0 %}
 <p class="notification is-info is-light">
-    No resources found yet - <a href="{{ path_for('account.add') }}" class="is-link">add an account</a> to trigger resource discovery
+    No resources found - <a href="{{ path_for('account.add') }}" class="is-link">add an account</a> to trigger resource discovery
 </p>
 {% else %}
-<table class="table is-striped is-hoverable is-fullwidth">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Account</th>
-            <th>ARN</th>
-            <th>Region</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for resource in resources %}
-        <tr>
-            <td>{{ resource.name }}</td>
-            <td>{{ resource.account }}</td>
-            <td>{{ resource.arn }}</td>
-            <td>{{ resource.region }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Account</th>
+                {# <th>ARN</th> #}
+                <th>Region</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for resource in resources %}
+            <tr>
+                <td>{{ resource.name }}</td>
+                <td>{{ resource.account }}</td>
+                {# <td>{{ resource.arn }}</td> #}
+                <td>{{ resource.region|region_label }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endif %}
 {% endblock %}
