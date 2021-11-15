@@ -10,18 +10,18 @@
 <table class="table is-striped is-hoverable is-fullwidth">
     <thead>
         <tr>
+            <th>Name</th>
             <th>Account</th>
             <th>ARN</th>
-            <th>Name</th>
             <th>Region</th>
         </tr>
     </thead>
     <tbody>
     {% for resource in resources %}
         <tr>
+            <td>{{ resource.name }}</td>
             <td>{{ resource.account }}</td>
             <td>{{ resource.arn }}</td>
-            <td>{{ resource.name }}</td>
             <td>{{ resource.region }}</td>
         </tr>
     {% endfor %}

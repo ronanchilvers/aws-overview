@@ -25,7 +25,10 @@ class ResourceController
         ResponseInterface $response
     ): ResponseInterface {
 
-        $resources = Orm::finder(Resource::class)->all();
+        $resources = Orm::finder(Resource::class)
+            ->select()
+            ->orderby(Resource::prefix('name'))
+            ->execute();
 
         return View::render(
             $response,

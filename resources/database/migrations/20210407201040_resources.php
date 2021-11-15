@@ -9,10 +9,10 @@ class Resources extends AbstractMigration
      */
     public function change()
     {
-        $accounts = $this->table('resources', [
+        $resources = $this->table('resources', [
             'id' => 'resource_id',
         ]);
-        $accounts
+        $resources
             ->addColumn('resource_account', 'integer')
             ->addColumn('resource_arn', 'string', ['length' => 2048, 'null' => false])
             ->addColumn('resource_region', 'string', ['length' => 256, 'null' => false])

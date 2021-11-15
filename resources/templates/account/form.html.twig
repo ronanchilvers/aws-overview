@@ -29,7 +29,8 @@
                 name="data[number]"
                 class="input {{ error_class }}"
                 placeholder="The AWS account number (required)"
-                value="{{ account.number }}">
+                value="{{ account.number }}"
+                autocomplete="off">
         </div>
         <p class="help {{ error_class }}">Required</p>
     </div>
@@ -46,7 +47,8 @@
                 name="data[key]"
                 class="input {{ error_class }}"
                 placeholder="An AWS access key for this account (required)"
-                value="{{ account.key }}">
+                value="{{ account.key }}"
+                autocomplete="off">
         </div>
         <p class="help {{ error_class }}">Required</p>
     </div>
@@ -63,15 +65,21 @@
                 name="data[secret]"
                 class="input {{ error_class }}"
                 placeholder="An AWS secret key for this account (required)"
-                value="{{ account.secret }}">
+                value="{{ account.secret }}"
+                autocomplete="off">
         </div>
         <p class="help {{ error_class }}">Required</p>
     </div>
 
     <div class="field">
         {%  set error_class = account.hasError('regions') ? "is-danger" : "" %}
-        <label class="label {{ error_class }}">Regions</label>
-        <div class="columns is-multiline">
+        <label class="label {{ error_class }}">
+            <span class="is-pulled-right">
+                <a href="#" class="js-toggle" data-target="#js-regions">Toggle all / none</a>
+            </span>
+            Regions
+        </label>
+        <div class="columns is-multiline" id="js-regions">
         {% for region in regions %}
             {#% if 0 != loop.index0 and 0 == loop.index0 % 3 %}
         </div>
@@ -86,6 +94,7 @@
                         id="region_{{ region }}"
                         name="data[regions][{{ region }}]"
                         value="{{ region }}"
+                        class="js-toggle-subject"
                         {% if account.hasRegion(region) %}checked="checked"{% endif %}>
                     {{ region }}
                 </label>

@@ -28,7 +28,10 @@ class AccountController
         ResponseInterface $response
     ): ResponseInterface {
 
-        $accounts = Orm::finder(Account::class)->all();
+        $accounts = Orm::finder(Account::class)
+            ->select()
+            ->orderby(Account::prefix('name'))
+            ->execute();
 
         return View::render(
             $response,
