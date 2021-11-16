@@ -1,0 +1,1 @@
+$(function(){var i=$("#js-state");$("#js-type").change(function(n){i.find("option").remove();var o=[];switch(o.push("<option value=''>Any</option>"),$(this).val()){case"ec2":o.push("<option value='running'>Running</option>"),o.push("<option value='stopped'>Stopped</option>");break;case"s3":o.push("<option value='available'>Available</option>")}i.html(o.join(""))}).change()});
