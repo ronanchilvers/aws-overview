@@ -15,19 +15,30 @@ class ResourceFinder extends Finder
      *
      * @author Ronan Chilvers <ronan@d3r.com>
      */
-    public function forFilters($type, $account, $region)
+    public function forFilters(array $params)
     {
         $select = $this->select()
             ->orderby(Resource::prefix('name'));
-        if (!empty($type)) {
-            $type = "arn:aws:{$type}%";
-            $select->where(Resource::prefix('arn'), 'like', $type);
-        }
-        if (!empty($account)) {
-            $select->where(Resource::prefix('account'), '=', $account);
-        }
-        if (!empty($region)) {
-            $select->where(Resource::prefix('region'), '=', $region);
+        $map = [
+            'type'    => 'arn',
+            'account' => 'account',
+            'region'  => 'region',
+            'state'   => 'state',
+        ];
+        foreach ($map as $key => $field) {
+            if (isset($params[$key]) && !empty($params[$key])) {
+                $value = $params[$key];
+                $operator = '=';
+                if ('arn' == $field) {
+                    $value    = "arn:aws:{$value}%";
+                    $operator = 'like';
+                }
+                $select->where(
+                    Resource::prefix($field),
+                    $operator,
+                    $value
+                );
+            }
         }
 
         return $select->execute();

@@ -8,6 +8,7 @@ use App\Facades\Log;
 use App\Facades\Router;
 use App\Facades\Session;
 use App\Facades\View;
+use App\Model\State;
 use App\Queue\DiscoverJob;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -37,7 +38,8 @@ class AccountController
             $response,
             'account/index.html.twig',
             [
-                'accounts' => $accounts
+                'accounts' => $accounts,
+                'state_discover'   => State::is('discover', 'active'),
             ]
         );
     }

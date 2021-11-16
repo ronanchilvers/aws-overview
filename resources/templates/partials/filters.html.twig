@@ -9,7 +9,7 @@
                     {% for type in ["ec2", "s3" ] %}
                         <option
                             value="{{ type }}"
-                            {% if filtered_type == type %}selected{% endif %}
+                            {% if filters.type == type %}selected{% endif %}
                             >
                             {{ type }}
                         </option>
@@ -29,7 +29,7 @@
                     {% for account in accounts %}
                         <option
                             value="{{ account.id }}"
-                            {% if filtered_account == account.id %}selected{% endif %}
+                            {% if filters.account == account.id %}selected{% endif %}
                             >{{ account.name }}</option>
                     {% endfor %}
                     </select>
@@ -47,7 +47,7 @@
                     {% for region,label in regions %}
                         <option
                             value="{{ region }}"
-                            {% if filtered_region == region %}selected{% endif %}
+                            {% if filters.region == region %}selected{% endif %}
                             >{{ label }}</option>
                     {% endfor %}
                     </select>
@@ -60,7 +60,7 @@
             <label class="label">Resource State</label>
             <div class="control">
                 <div class="select">
-                    <select name="state" id="js-state">
+                    <select name="state" id="js-state" data-selected="{{ filters.state }}">
                         <option value="">Any</option>
                     </select>
                 </div>

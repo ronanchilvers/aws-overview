@@ -25,7 +25,11 @@
 
     <div class="navbar-end">
         <div class="navbar-item">
-            discovery
+            <span
+                id="js-icon-state"
+                data-endpoint="discover"
+                {% if not state_discover %}class="is-hidden"{% endif %}
+                    ><img src="/images/spinner.gif"></span>
         </div>
     </div>
 </nav>

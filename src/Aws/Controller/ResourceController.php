@@ -9,6 +9,7 @@ use App\Facades\Log;
 use App\Facades\Router;
 use App\Facades\Session;
 use App\Facades\View;
+use App\Model\State;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ronanchilvers\Orm\Orm;
@@ -27,20 +28,26 @@ class ResourceController
         ResponseInterface $response
     ): ResponseInterface {
 
-        $type    = filter_var(
-            $request->getParam('type', null),
-            FILTER_SANITIZE_STRING
-        );
-        $account = filter_var(
-            $request->getParam('account', null),
-            FILTER_SANITIZE_NUMBER_INT
-        );
-        $region  = filter_var(
-            $request->getParam('region', null),
-            FILTER_SANITIZE_STRING
-        );
+        $params = [
+            'type'    => FILTER_SANITIZE_STRING,
+            'account' => FILTER_SANITIZE_NUMBER_INT,
+            'region'  => FILTER_SANITIZE_STRING,
+            'state'   => FILTER_SANITIZE_STRING,
+        ];
+        $filters = [];
+        foreach ($params as $param => $filter) {
+            $value = filter_var(
+                $request->getParam($param, null),
+                $filter
+            );
+            if (!$value) {
+                $value = null;
+            }
+            $filters[$param] = $value;
+        }
+
         $resources = Orm::finder(Resource::class)
-            ->forFilters($type, $account, $region);
+            ->forFilters($filters);
         $accounts = Orm::finder(Account::class)
             ->select()
             ->orderby(Account::prefix('name'))
@@ -53,9 +60,8 @@ class ResourceController
                 'resources'        => $resources,
                 'accounts'         => $accounts,
                 'regions'          => Region::ALL,
-                'filtered_type'    => $type,
-                'filtered_account' => $account,
-                'filtered_region'  => $region,
+                'filters'          => $filters,
+                'state_discover'   => State::is('discover', 'active'),
             ]
         );
     }

@@ -2,6 +2,7 @@ $(function () {
     var $stateSelect = $('#js-state');
     $('#js-type').change(function (e) {
         $stateSelect.find('option').remove();
+        var selected = $stateSelect.data('selected');
         var options = [];
         options.push("<option value=''>Any</option>");
         switch ($(this).val()) {
@@ -15,6 +16,10 @@ $(function () {
             default:
                 break;
         }
+        $stateSelect.prop('disabled', 1 == options.length);
         $stateSelect.html(options.join(''));
+        // if ('' != selected) {
+            $stateSelect.val(selected);
+        // }
     }).change();
 });

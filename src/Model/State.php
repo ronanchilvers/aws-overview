@@ -13,6 +13,13 @@ class State extends Model
 
     static protected $columnPrefix = 'state';
 
+    public static function is($key, $value): bool
+    {
+        $actual = static::pick($key, null);
+
+        return $value == $actual;
+    }
+
     public static function pick($key, $default = null): ?string
     {
         $state = Orm::finder(State::class)->select()
